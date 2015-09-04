@@ -23,7 +23,7 @@ def modularExponentiation(public_exponent,public_modulus,value):
     return tempVal
 
 
-def RSA_encrypt():
+def RSA_encrypt(keyFilePath,messageFilePath):
     """Encrypts a message using RSA encryption.
 
     Converts the characters of the message into their ascii values and concatenates these 
@@ -31,7 +31,7 @@ def RSA_encrypt():
     These blocks are then RSA encrypted and written to the ciphertext file.
 
     """
-    data = readInput('public_key.txt','message.txt')    
+    data = readInput(keyFilePath,messageFilePath)    
 
     #Checks that the public modulus is big enough to encompass all the ascii values.
     if int(data[0][0])<257:
@@ -75,7 +75,7 @@ def RSA_encrypt():
         f.write(",")
 
 #TODO:change decryption method to use modular exponentiation instead of doing all powers then modulo.   
-def RSA_decrypt():
+def RSA_decrypt(keyFilePath,cipherTextPath):
     """Decrypts a message that was encrypted with RSA encryption.
 
     Converts the characters of the message into their ascii values and concatenates these 
@@ -83,7 +83,7 @@ def RSA_decrypt():
     These blocks are then RSA encrypted and written to the ciphertext file.
 
     """
-    data = readInput('private_key.txt','ciphertext.txt')
+    data = readInput(keyFilePath,cipherTextPath)
     public_modulus=int(data[0][0])*int(data[0][1])
 
     #Parses the ciphertext and generates the list encryptedMessage where each item is an
@@ -137,5 +137,5 @@ def RSA_decrypt():
         
     print(''.join(decryptedMessage))
 
-#RSA_encrypt()    
-#RSA_decrypt()
+#RSA_encrypt('public_key.txt','message.txt')    
+#RSA_decrypt('private_key.txt','ciphertext.txt')
